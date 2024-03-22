@@ -1,10 +1,10 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from "../store/store";
 import { getRouteApi } from '../connection/connectApi';
 
 const Child = () => {
-    const status = useSelector(state => state.sample.status);
-    const result = useSelector(state => state.sample.result);
-    const dispatch = useDispatch();
+    const status = useAppSelector((state) => state.sample.status);
+    const result = useAppSelector((state) => state.sample.result);
+    const dispatch = useAppDispatch();
 
     const getTestScore = () => {
         dispatch(getRouteApi());

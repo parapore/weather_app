@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-const getRouteApiFunc = (): Promise<string> => {//axync付けないとどうなるの？
-    return axios.get('http://localhost:8081')
+const getRouteApiFunc = () => {//axync付けないとどうなるの？
+    return axios.get('http://localhost:8080')
     .then((res) => {
         console.log(res.data);
         return res.data;
@@ -28,16 +28,7 @@ const getRouteApiFunc2 = async () => {
 };
 
 //createAsyncThunk(第1引数：文字列, 第2引数：Promiseを返す非同期関数)
-export const getRouteApi = createAsyncThunk(
+export const getRouteApi =  createAsyncThunk(
     'route/getApi',
-    // async () => {
-    //   try {
-    //     const data = await getRouteApiFunc();
-    //     return data;
-    //   } catch (error) {
-    //     console.log(error)
-    //     throw error;
-    //   }
-    // }
     getRouteApiFunc
   );
