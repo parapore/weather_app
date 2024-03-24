@@ -1,18 +1,17 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import { Provider } from "react-redux";
+import Table from './component/Table';
 import store from './store/store';
-import Child from './component/Child';
-
 
 
 function App() {
 
+
   return (
     <Provider store={store}>
       <div className="App">
-        <Child />
+        <Table />
       </div>
     </Provider>
   );
