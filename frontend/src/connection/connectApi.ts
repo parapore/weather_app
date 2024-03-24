@@ -13,18 +13,6 @@ const getRouteApiFunc = () => {
         })
 };
 
-// async/awaitに修正
-//axyncを関数の頭につけると戻り値がPromise<T>になる
-//awaitはその非同期処理が終わるまで待つ
-const getRouteApiFunc2 = async () => {
-    try {
-        const res: AxiosResponse<weather[]> = await axios.get('http://localhost:8080'); // axios.get()をawaitする
-        return res.data;
-    } catch (error) {
-        console.log(error);
-        throw error;
-    }
-};
 
 //createAsyncThunk(第1引数：文字列, 第2引数：Promiseを返す非同期関数)
 export const getRouteApi = createAsyncThunk(
