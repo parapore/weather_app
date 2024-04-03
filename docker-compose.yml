@@ -1,0 +1,53 @@
+version: '3'
+services:
+  spring_app:
+    image: eclipse-temurin:latest
+    networks:
+      weather_net:
+    # ローカルのソースコードをコンテナ内と同期
+    volumes:
+      - C:/VsCode_Workspace/weather_app:/workspace/weather_app    
+    # コンテナ起動状態を維持する
+    tty: true
+    ports:
+      - "8080:8080" # 後で消す（本番では不要）
+    #   - "5005:5005" #デバッグ用
+    # environment:
+    #   - JAVA_TOOL_OPTIONS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005 #デバッグ用
+
+  react_app:
+    image: node:latest 
+    networks:
+      weather_net:
+    volumes:
+      - C:/VsCode_Workspace/weather_app/frontend:/workspace/weather_app/frontend
+    working_dir: /workspace/weather_app/frontend # このディレクトリで、次の行のコマンド(npm start)が実行される
+    command: npm start
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mysql_db # MySQL起動後に起動
+
+  mysql_db:
+    image: mysql:latest
+    networks:
+      weather_net:
+    volumes: 
+      - C:/VsCode_Workspace/weather_app/db_init:/docker-entrypoint-initdb.d #このディレクトリに.sqlファイル置いとくとコンテナ起動時に実行される
+      - mysqlvolume01:/var/lib/mysql #ボリュームマウント
+    ports:
+      - 3305:3306 #後で消す（本番では不要）
+# 環境変数の指定
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: test
+      MYSQL_USER: user
+      MYSQL_PASSWORD: userpass
+
+# ボリューム作成
+volumes:
+  mysqlvolume01:
+
+# ネットワーク作成
+networks:
+  weather_net:

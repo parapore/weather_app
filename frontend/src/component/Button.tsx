@@ -1,15 +1,20 @@
+import Button from '@mui/material/Button';
+
 // TODO ボタンコンポーネントとして共通化したい
-const Button = (props: any) => {
+const ButtonComponent = (props: any) => {
 
-    const executeClickEvent = () => {
-      props.clickEventFunc();
-    }
-
-    return(
-      <>
-        <button onClick={executeClickEvent}>{props.buttonName}</button>
-      </>
-    )
+  const executeClickEvent = () => {
+    props.clickEventFunc();
   }
 
-export default Button;
+  return (
+    <>
+     {/* <button onClick={executeClickEvent}>{props.buttonName}</button> */}
+
+      <Button variant="contained" onClick={executeClickEvent}>{props.buttonName}</Button>
+
+    </>
+  )
+}
+
+export default ButtonComponent;

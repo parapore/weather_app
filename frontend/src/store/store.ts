@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { sampleSlice } from "../reducer/reducer";
+import { weatherSlice } from "../reducer/reducer";
 import { useDispatch, useSelector } from 'react-redux'
 import type { TypedUseSelectorHook } from 'react-redux'
 
@@ -8,7 +8,7 @@ import type { TypedUseSelectorHook } from 'react-redux'
 const store = configureStore({
     reducer: {
         // ここにReducerを登録する
-        sample: sampleSlice.reducer,
+        weather: weatherSlice.reducer,
     }
 });
 

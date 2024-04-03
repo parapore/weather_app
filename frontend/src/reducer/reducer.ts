@@ -5,22 +5,27 @@ import { WritableDraft } from "immer/dist/internal";
 
 // initialStateの型エイリアス
 type initialStateType = {
-    response: weather[] | null
-    status: string;
+    weatherResponse: weather[] | null // 素の気象データ格納用
+    rankingData: weather[] | null // 県別ランキング気象データ格納用
+    status: string
 }
 // initialStateを初期化
 const initialState: initialStateType = {
-    response: null,
+    weatherResponse: null, 
+    rankingData: null,
     status: '',
 }
 
-export const sampleSlice = createSlice({
-    name: 'sample',
+export const weatherSlice = createSlice({
+    name: 'weather',
     initialState,
     // ノーマルReducerの登録場所（同期処理）
     reducers: {
-        sort(state, { type, payload}) {
-            state.response = payload;
+        updateWeatherResponse(state, { type, payload}) {
+            state.weatherResponse = payload;
+        },
+        updateRankingData(state, {type, payload}) {
+            state.rankingData = payload;
         }
     },
     // extraReducerの登録場所（非同期処理）
@@ -30,13 +35,13 @@ export const sampleSlice = createSlice({
         })
         .addCase(getRouteApi.fulfilled, (state: WritableDraft<initialStateType>, action) => {
             state.status = 'Finished';
-            state.response = action.payload;
+            state.weatherResponse = action.payload;// APIから取得した気象データをStateに格納
         })
-        .addCase(getRouteApi.rejected, (state) => {
+        .addCase(getRouteApi.rejected, (state: WritableDraft<initialStateType>) => {
             state.status = 'Failed';
         })
     }
 })
 
 // ActionCreatorの取得
-export const actions = sampleSlice.actions;
+export const actions = weatherSlice.actions;

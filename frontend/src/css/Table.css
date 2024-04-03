@@ -1,8 +1,0 @@
-.Table {
-    margin: auto;
-    border: 4mm ridge rgba(211, 220, 50, .6);
-}
-
-.Table th, td {
-    border: 0.1mm dashed;
-}
